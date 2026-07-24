@@ -20,8 +20,10 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'factr_teleop_franka = factr_teleop.factr_teleop_franka_zmq:main',
-            'factr_teleop_grav_comp_demo = factr_teleop.factr_teleop_grav_comp_demo:main',
+            'factr_teleop_xArm7 = factr_teleop.factr_teleop_xArm7:main',
+            'factr_teleop_grav_comp_demo_xArm7 = factr_teleop.factr_teleop_grav_comp_demo_xArm7:main',
+            'xarm7_zmq_server = factr_teleop.xarm7_zmq_server:main',
+            'factr_teleop_xarm7_zmq = factr_teleop.factr_teleop_xarm7_zmq:main',
         ],
     },
 )

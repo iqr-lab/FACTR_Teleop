@@ -16,21 +16,21 @@
 # limitations under the License.
 # ---------------------------------------------------------------------------
 
-sim_desktop_ip_address = "172.16.0.9"
-franka_left_ip_address = "172.16.0.1"
-franka_right_ip_address = "172.16.0.3"
+sim_desktop_ip_address = "192.168.1.1"
+xarm7_left_ip_address = "192.168.1.216"
+xarm7_right_ip_address = "192.168.1.205"
 
 
-franka_right_real_zmq_addresses = {
-    "joint_state_sub":  f"tcp://{franka_right_ip_address}:3099",
-    "joint_torque_sub": f"tcp://{franka_right_ip_address}:3087",
+xarm7_right_real_zmq_addresses = {
+    "joint_state_sub":  f"tcp://{sim_desktop_ip_address}:3099",
+    "joint_torque_sub": f"tcp://{sim_desktop_ip_address}:3087",
     "joint_pos_cmd_pub": f"tcp://{sim_desktop_ip_address}:2098",
 
 }
 
-franka_left_real_zmq_addresses = {
-    "joint_state_sub":  f"tcp://{franka_left_ip_address}:5099",
-    "joint_torque_sub": f"tcp://{franka_left_ip_address}:5087",
+xarm7_left_real_zmq_addresses = {
+    "joint_state_sub":  f"tcp://{sim_desktop_ip_address}:5099",
+    "joint_torque_sub": f"tcp://{sim_desktop_ip_address}:5087",
     "joint_pos_cmd_pub": f"tcp://{sim_desktop_ip_address}:4098",
 
 }

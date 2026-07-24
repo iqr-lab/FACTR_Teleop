@@ -1,0 +1,59 @@
+# FACTR Teleop Configuration — xArm7 Simulation Mode
+# Copy to: src/factr_teleop/factr_teleop/configs/xarm7_sim.yaml
+
+name: right
+
+dynamixel:
+  dynamixel_port: "usb-FTDI_USB__-__Serial_Converter_FTAKRKXH-if00-port0"  # your leader arm port
+  servo_types: [
+   "XC330_T288_T", "XM430_W210_T", "XC330_T288_T", "XM430_W210_T",
+   "XC330_T288_T", "XC330_T288_T", "XC330_T288_T", "XC330_T288_T",
+  ]
+  joint_signs: [-1, 1, -1, 1, 1, 1, 1, -1]
+
+arm_teleop:
+  leader_urdf: "xArm7.urdf"
+
+  num_arm_joints: 7
+  arm_joint_limits_safety_margin: 0.1
+
+  arm_joint_limits_max: [6.28, 2.09, 6.28, 3.93, 6.28, 3.14, 6.28]
+  arm_joint_limits_min: [-6.28, -2.09, -6.28, -3.93, -6.28, -1.69, -6.28]
+
+  initialization:
+    calibration_joint_pos: [0.0, -0.6021, 0.0, 0.2618, 0.0, 0.8727, 0.0]
+    initial_match_joint_pos: [0.0, -0.6021, 0.0, 0.2618, 0.0, 0.8727, 0.0]
+
+gripper_teleop:
+  actuation_range: 1.0
+
+controller:
+  frequency: 200
+  torque_feedback:
+    enable: True
+    gain: 1.0
+    damping: 0.0
+    motor_scalar: 94.5652173913
+  gravity_comp:
+    enable: True
+    gain: 0.6
+  null_space_regulation:
+    null_space_joint_target: [0.0, -0.7854, 0.0, -2.356, 0.0, 1.57, 0.0]
+    enable: False
+    kp: 0.0
+    kd: 0.00
+  static_friction_comp:
+    enable_speed: 0.9
+    gain: 0.1
+  joint_limit_barrier:
+    kp: 0.3 
+    kd: 0.1 
+  joint_position_control:
+    interpolation_step_size: 0.01
+    kp: 0.3 
+    kd: 0.1 
+
+  gripper_feedback:
+    enable: False
+    gain: 0.2
+    ema_beta: 0.95
