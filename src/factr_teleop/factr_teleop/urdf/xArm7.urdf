@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="xArm7">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.0002774051098498538 -0.04455760463583238 0.0030747786614308006"
+        rpy="0 0 0" />
+      <mass
+        value="0.157" />
+      <inertia
+        ixx="3.3566234583E-04"
+        ixy="2.3356414268E-07"
+        ixz="1.3112412345E-07"
+        iyy="8.3488356010E-05"
+        iyz="-1.7276279368E-05"
+        izz="3.9734039713E-04"  />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14159" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/base_link.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.14159" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/base_link.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-0.000692643028691098 0.0309352103482512 0.026924856059739"
+        rpy="0 0 0" />
+      <mass
+        value="0.118" />
+      <inertia
+        ixx="7.6207076213E-05"
+        ixy="3.7908191397E-07"
+        ixz="1.0021638730E-07"
+        iyy="5.5406185781E-05"
+        iyz="-1.7688101222E-05"
+        izz="4.6233787169E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link1.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link1.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint1"
+    type="revolute">
+    <origin
+      xyz="0 0 0.029"
+      rpy="0 0 3.14159" />
+    <parent
+      link="base_link" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="5.9069275787242184e-05 -0.0526077073752822 -0.0054498718261331"
+        rpy="0 0 0" />
+      <mass
+        value="0.065" />
+      <inertia
+        ixx="9.1479145326E-05"
+        ixy="-2.3121290936E-07"
+        ixz="-1.1050519845E-07"
+        iyy="1.4683123026E-05"
+        iyz="-5.6032997683E-06"
+        izz="8.2145185728E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link2.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link2.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint2"
+    type="revolute">
+    <origin
+      xyz="-0.00064846 0.036998 0.05275"
+      rpy="-1.5708 0 0" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-2.09"
+      upper="2.09"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="-0.0260248049301313 -0.0139000228339416 0.0215855381516363"
+        rpy="0 0 0" />
+      <mass
+        value="0.118" />
+      <inertia
+        ixx="4.4391042294E-05"
+        ixy="-1.1027485095E-05"
+        ixz="1.2106864249E-05"
+        iyy="6.4348381643E-05"
+        iyz="5.1138388065E-06"
+        izz="4.7953596743E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link3.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link3.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint3"
+    type="revolute">
+    <origin
+      xyz="0 -0.1051 -0.015"
+      rpy="1.5708 -1.5708 0" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="0.0233273304129762 -0.0381930034566547 -0.00488888264315079"
+        rpy="0 0 0" />
+      <mass
+        value="0.065" />
+      <inertia
+        ixx="5.2096719946E-05"
+        ixy="8.3794943673E-06"
+        ixz="7.7856142990E-07"
+        iyy="2.2400740232E-05"
+        iyz="-7.3252857342E-06"
+        izz="4.8976760868E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link4.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link4.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint4"
+    type="revolute">
+    <origin
+      xyz="-0.03525 -0.018 0.04325"
+      rpy="-1.5708 0 1.5708" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-0.19"
+      upper="3.93"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="5.989993360922645e-06 0.00524728704916701 -0.03683747937052984"
+        rpy="0 0 0" />
+      <mass
+        value="0.050" />
+      <inertia
+        ixx="5.0239671212E-05"
+        ixy="5.5685054792E-10"
+        ixz="-7.0060340481E-9"
+        iyy="4.9241786469E-05"
+        iyz="-8.8015194487E-08"
+        izz="6.9114523203E-06" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link5.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link5.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint5"
+    type="revolute">
+    <origin
+      xyz="0.034264 -0.17182 -0.012"
+      rpy="1.57 0 0" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="0.0260332308096987 0.025655297536038 0.00613859562058106"
+        rpy="0 0 0" />
+      <mass
+        value="0.042" />
+      <inertia
+        ixx="1.8460366343E-05"
+        ixy="-5.4140957596E-06"
+        ixz="-2.3664488233E-06"
+        iyy="1.0722146715E-05"
+        iyz="-4.3679087868E-06"
+        izz="2.0336663520E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link6.stl" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link6.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint6"
+    type="revolute">
+    <origin
+      xyz="0 0 0"
+      rpy="1.5708 0 0" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-1.69"
+      upper="3.14"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+  <link
+    name="link7">
+    <inertial>
+      <origin
+        xyz="-0.003401 0.002689 0.057613"
+        rpy="0 0 0" />
+      <mass
+        value="0.068" />
+      <inertia
+        ixx="5.508e-4"
+        ixy="-3.397e-5"
+        ixz="7.659e-5"
+        iyy="5.360e-4"
+        iyz="6.977e-5"
+        izz="7.329e-5" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/link7.stl"  />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="file:///home/blakekight/Downloads/SI_FACTR_JiayuHU/URDF/xArm7/meshes/leader_handle_with_motor.stl" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="joint7"
+    type="revolute">
+    <origin
+      xyz="0.024 0.0535 0.010332"
+      rpy="1.5708 0 3.14159" />
+    <parent
+      link="link6" />
+    <child
+      link="link7" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-6.28"
+      upper="6.28"
+      effort="0.92"
+      velocity="6.8" />
+  </joint>
+</robot>
