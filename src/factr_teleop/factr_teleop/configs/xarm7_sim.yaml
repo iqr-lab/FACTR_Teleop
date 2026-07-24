@@ -21,8 +21,10 @@ arm_teleop:
   arm_joint_limits_min: [-6.28, -2.09, -6.28, -3.93, -6.28, -1.69, -6.28]
 
   initialization:
-    calibration_joint_pos: [0.0, -0.6021, 0.0, 0.2618, 0.0, 0.8727, 0.0]
-    initial_match_joint_pos: [0.0, -0.6021, 0.0, 0.2618, 0.0, 0.8727, 0.0]
+    # The expected leader arm joint position before launching the script
+    calibration_joint_pos: [0.0, -0.7854, 0.0, 0.635, 0.0, 1.46, 0.0]
+    # The leader arm must be brought to this joint position before the follower starts mirroring the leader
+    initial_match_joint_pos: [0.0, -0.7854, 0.0, 0.635, 0.0, 1.46, 0.0]
 
 gripper_teleop:
   actuation_range: 1.0

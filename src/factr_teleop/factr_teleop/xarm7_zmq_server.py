@@ -36,7 +36,7 @@ import numpy as np
 import pinocchio as pin
 from xarm.wrapper import XArmAPI
 
-from factr_teleop.python_utils.python_utils.zmq_messenger import ZMQPublisher, ZMQSubscriber
+from factr_teleop.python_utils.zmq_messenger import ZMQPublisher, ZMQSubscriber
 
 NUM_ARM_JOINTS = 7
 DEFAULT_MAX_DELTA = 0.05  # rad per command step, same as gello's XArmRobot

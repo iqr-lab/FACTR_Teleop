@@ -24,8 +24,8 @@ import rclpy
 from sensor_msgs.msg import JointState
 
 from factr_teleop.factr_teleop_xArm7 import FACTRTeleop
-from factr_teleop.python_utils.python_utils.zmq_messenger import ZMQPublisher, ZMQSubscriber
-from python_utils.global_configs import xarm7_left_real_zmq_addresses, xarm7_right_real_zmq_addresses
+from factr_teleop.python_utils.zmq_messenger import ZMQPublisher, ZMQSubscriber
+from factr_teleop.python_utils.global_configs import xarm7_left_real_zmq_addresses, xarm7_right_real_zmq_addresses
 
 NUM_ARM_JOINTS = 7
 

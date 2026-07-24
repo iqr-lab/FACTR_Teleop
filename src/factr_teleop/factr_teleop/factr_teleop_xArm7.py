@@ -29,7 +29,7 @@ from std_msgs.msg import Float32MultiArray
 from abc import ABC, abstractmethod
 from sensor_msgs.msg import JointState
 from rclpy.node import Node
-from python_utils.utils import get_workspace_root
+from factr_teleop.python_utils.utils import get_workspace_root
 from factr_teleop.dynamixel.driver import DynamixelDriver
 
 
@@ -79,13 +79,7 @@ class FACTRTeleop(Node, ABC):
         self.name = self.config["name"]
         self.dt = 1 / self.config["controller"]["frequency"]
         
-        
-        self.create_subscription(
-            Float32MultiArray,
-            "/xarm7/desired_joint_pos",
-            self.sim_joint_callback,
-            10
-        )
+        self._prepare_dynamixel()
 
         self._prepare_inverse_dynamics()
 
@@ -133,7 +127,6 @@ class FACTRTeleop(Node, ABC):
         # needs to be implemented to establish communication between the leader and the follower
         self.joint_state_pub = self.create_publisher(JointState, '/joint_states', 10)
         self.set_up_communication()
-        
 
         self._get_dynamixel_offsets()
         
@@ -220,6 +213,8 @@ class FACTRTeleop(Node, ABC):
         # get arm offsets
         self.joint_offsets = []
         curr_joints, _ = self.driver.get_positions_and_velocities()
+        print("RAW DYNAMIXEL JOINTS:", curr_joints)
+        print("CALIBRATION TARGET:", self.calibration_joint_pos)
         for i in range(self.num_arm_joints):
             best_offset = 0
             best_error = 1e9
@@ -274,14 +269,6 @@ class FACTRTeleop(Node, ABC):
         Returns the current joint positions and velocities of the leader arm and gripper,
         aligned with the joint conventions (range and direction) of the follower arm.
         """
-        #NEW
-        if self.simulation:
-            return (
-                self.sim_joint_pos,
-                self.sim_joint_vel,
-                0.0,
-                0.0
-        )
         self.gripper_pos_prev = self.gripper_pos
         joint_pos, joint_vel = self.driver.get_positions_and_velocities()
         joint_pos_arm = (
@@ -325,8 +312,6 @@ class FACTRTeleop(Node, ABC):
         """
         Applies torque to the leader arm and gripper.
         """
-        if self.simulation:
-            return
         arm_gripper_torque = np.append(arm_torque, gripper_torque)
         self.driver.set_torque(arm_gripper_torque*self.joint_signs)
         
