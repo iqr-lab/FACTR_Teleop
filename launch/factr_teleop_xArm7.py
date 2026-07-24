@@ -22,12 +22,12 @@ from launch_ros.actions import Node
 def generate_launch_description():
     factr_teleop_franka = Node(
         package='factr_teleop',
-        executable='factr_teleop_franka',
-        name='factr_teleop_franka',
+        executable='factr_teleop_xArm7',
+        name='factr_teleop_xArm7',
         output='screen',
         emulate_tty=True,
         parameters=[
-            {"config_file": "franka_example.yaml"}
+            {"config_file": "xarm7_sim.yaml"}
         ]
     )
 
