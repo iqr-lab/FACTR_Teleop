@@ -21,7 +21,7 @@ import time
 import numpy as np
 
 import rclpy
-from factr_teleop.factr_teleop import FACTRTeleop
+from factr_teleop.factr_teleop_xArm7 import FACTRTeleop
 
 class FACTRTeleopGravComp(FACTRTeleop):
     """
@@ -65,4 +65,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
