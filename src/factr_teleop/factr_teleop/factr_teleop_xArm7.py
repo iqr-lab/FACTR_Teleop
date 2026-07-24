@@ -22,8 +22,12 @@ import yaml
 import subprocess
 import numpy as np
 import pinocchio as pin
-from abc import ABC, abstractmethod
 
+import threading
+import rclpy
+from std_msgs.msg import Float32MultiArray
+from abc import ABC, abstractmethod
+from sensor_msgs.msg import JointState
 from rclpy.node import Node
 from python_utils.utils import get_workspace_root
 from factr_teleop.dynamixel.driver import DynamixelDriver
@@ -59,6 +63,7 @@ class FACTRTeleop(Node, ABC):
     features such as gravity compensation, null-space regulation, friction compensation,
     and force-feedback.
 
+    
     Note that this class should be used as a parent class, where the defined abstract 
     methods must be implemented by subclasses for handling communication between the 
     leader and follower arms, as well as force-feedback for the leader gripper.
@@ -74,7 +79,14 @@ class FACTRTeleop(Node, ABC):
         self.name = self.config["name"]
         self.dt = 1 / self.config["controller"]["frequency"]
         
-        self._prepare_dynamixel()
+        
+        self.create_subscription(
+            Float32MultiArray,
+            "/xarm7/desired_joint_pos",
+            self.sim_joint_callback,
+            10
+        )
+
         self._prepare_inverse_dynamics()
 
         # leader arm parameters
@@ -119,10 +131,12 @@ class FACTRTeleop(Node, ABC):
         self.enable_gripper_feedback = self.config["controller"]["gripper_feedback"]["enable"]
         
         # needs to be implemented to establish communication between the leader and the follower
+        self.joint_state_pub = self.create_publisher(JointState, '/joint_states', 10)
         self.set_up_communication()
+        
 
-        # calibrate the leader arm joints before starting
         self._get_dynamixel_offsets()
+        
         # ensure the leader and the follower arms have the same joint positions before starting
         self._match_start_pos()
         # start the control loop
@@ -260,6 +274,14 @@ class FACTRTeleop(Node, ABC):
         Returns the current joint positions and velocities of the leader arm and gripper,
         aligned with the joint conventions (range and direction) of the follower arm.
         """
+        #NEW
+        if self.simulation:
+            return (
+                self.sim_joint_pos,
+                self.sim_joint_vel,
+                0.0,
+                0.0
+        )
         self.gripper_pos_prev = self.gripper_pos
         joint_pos, joint_vel = self.driver.get_positions_and_velocities()
         joint_pos_arm = (
@@ -303,8 +325,11 @@ class FACTRTeleop(Node, ABC):
         """
         Applies torque to the leader arm and gripper.
         """
+        if self.simulation:
+            return
         arm_gripper_torque = np.append(arm_torque, gripper_torque)
         self.driver.set_torque(arm_gripper_torque*self.joint_signs)
+        
 
 
     def joint_limit_barrier(self, arm_joint_pos, arm_joint_vel, gripper_joint_pos, gripper_joint_vel):
@@ -413,14 +438,15 @@ class FACTRTeleop(Node, ABC):
         and the Return Delay Time is set to 0 using the Dynamixel Wizard software.
         """
         leader_arm_pos, leader_arm_vel, leader_gripper_pos, leader_gripper_vel = self.get_leader_joint_states()
-
+        leader_arm_pos = leader_arm_pos[:7]
+        leader_arm_vel = leader_arm_vel[:7] 
         torque_arm = np.zeros(self.num_arm_joints)
         torque_l, torque_gripper = self.joint_limit_barrier(
             leader_arm_pos, leader_arm_vel, leader_gripper_pos, leader_gripper_vel
         )
         torque_arm += torque_l
-        torque_arm += self.null_space_regulation(leader_arm_pos, leader_arm_vel)
-
+        if self.config["controller"]["null_space_regulation"].get("enable", True):
+            torque_arm += self.null_space_regulation(leader_arm_pos, leader_arm_vel)
         if self.enable_gravity_comp:
             torque_arm += self.gravity_compensation(leader_arm_pos, leader_arm_vel)
             torque_arm += self.friction_compensation(leader_arm_vel)
@@ -434,6 +460,12 @@ class FACTRTeleop(Node, ABC):
             torque_gripper += self.gripper_feedback(leader_gripper_pos, leader_gripper_vel, gripper_feedback)
 
         self.set_leader_joint_torque(torque_arm, torque_gripper)
+        js = JointState()
+        js.header.stamp = self.get_clock().now().to_msg()
+        js.header.frame_id = 'base_link'
+        js.name = [f'joint{i+1}' for i in range(self.num_arm_joints)] + ['joint8']
+        js.position = leader_arm_pos.tolist() + [float(self.gripper_pos)]
+        self.joint_state_pub.publish(js)
         self.update_communication(leader_arm_pos, leader_gripper_pos)
 
 
@@ -451,7 +483,8 @@ class FACTRTeleop(Node, ABC):
 
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
-        """
+        """              
+        
         pass
 
 
@@ -469,6 +502,7 @@ class FACTRTeleop(Node, ABC):
         Raises:
             NotImplementedError: If the method is not implemented in a subclass.
         """
+        return self.external_torque
         pass
 
 
@@ -530,3 +564,6 @@ class FACTRTeleop(Node, ABC):
             NotImplementedError: If the method is not implemented in a subclass.
         """
         pass
+
+
+    
