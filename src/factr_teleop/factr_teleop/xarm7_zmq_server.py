@@ -73,7 +73,7 @@ class XArm7ZMQServer:
         self.arm.clean_warn()
         self.arm.motion_enable(True)
         time.sleep(0.5)
-        self.arm.set_mode(1)  # servoj streaming mode
+        self.arm.set_mode(2)  # servoj streaming mode
         time.sleep(0.5)
         self.arm.set_state(0)
         time.sleep(0.5)
@@ -94,6 +94,7 @@ class XArm7ZMQServer:
         return q, qdot, tau_measured
 
     def _command_step(self, q_current):
+      '''
         target = self.cmd_sub.message
         if target is None:
             return
@@ -107,7 +108,7 @@ class XArm7ZMQServer:
         if ret in (1, 9):
             print(f"[xarm7_zmq_server] set_servo_angle_j error {ret}, clearing")
             self._init_arm()
-
+      '''
     def run(self):
         print(f"[xarm7_zmq_server] running at {self.rate_hz} Hz. Ctrl+C to stop.")
         while self.running:
