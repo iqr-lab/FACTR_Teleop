@@ -22,13 +22,12 @@ from launch_ros.actions import Node
 def generate_launch_description():
     factr_teleop_grav_comp_demo = Node(
         package='factr_teleop',
-        executable='factr_teleop_grav_comp_demo',
-        name='factr_teleop_grav_comp_demo',
+        executable='factr_teleop_grav_comp_demo_xArm7',
+        name='factr_teleop_grav_comp_demo_xArm7',
         output='screen',
         emulate_tty=True,
-        parameters=[
-            {"config_file": "grav_comp_demo.yaml"}
-        ]
+        parameters=[{'config_file': 'grav_comp_xArm7.yaml'}]
+
     )
 
     return LaunchDescription([
